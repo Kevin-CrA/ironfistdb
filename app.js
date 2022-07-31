@@ -22,11 +22,18 @@ app.get("/", (request, response, next) => {
 
 //GET all users
 app.get("/users", async (request, response) => {
- /* response.json({ message: "Connecaaaation sucaaaacessful" });*/
+ /* response.json({ message: "Connection successful" });*/
+
+ response.setHeader('Access-Control-Allow-Origin', '*');
+ response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+ response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+ response.setHeader('Access-Control-Allow-Credentials', true); // If needed
 
   const users = await User.find();
 
   response.json(users);
+
+
 
 });
 
@@ -65,7 +72,7 @@ app.patch("/users/:id", async (req, res) => {
 
 
 
-
+//DELETE individual user
 app.delete("/users/:id", async (req, res) => {
 	try {
 		await User.deleteOne({ _id: req.params.id })
@@ -85,19 +92,15 @@ const dbConnect = require("./db/dbConnect");
 dbConnect();
 
 
-// Curb Cores Error by adding a header here
+// Configurar cabeceras y cors
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.setHeader('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
 
 
 
