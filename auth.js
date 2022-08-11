@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+
+//Authentication 
 module.exports = async (request, response, next) => {
   try {
     //   get the token from the authorization header

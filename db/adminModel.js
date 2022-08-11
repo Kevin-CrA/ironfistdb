@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-// Create a schema for the user with the following fields:
-const UserSchema = new mongoose.Schema({
+// Create a schema for the admins with the following fields:
+const AdminSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: [true,"id is required"],
@@ -19,11 +19,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Please provide a password!"],
         unique: false,
       },
-      active: {
-        type: Boolean,
-        required: [false, "Please provide a status!"],
-        unique: false,
-      }
+
     })
 
-    module.exports = mongoose.model.Users || mongoose.model("Users", UserSchema);
+    module.exports = mongoose.model.Admins || mongoose.model("Admins", AdminSchema);
